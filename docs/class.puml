@@ -1,0 +1,20 @@
+@startuml
+
+class Position <Dict> {
+ - name: String
+}
+
+class User {
+ - email: String
+ - name: String
+ - position: Position
+}
+
+class Task {
+ - title: String
+ - description: String
+ - assigned: List<User>
+ - reviewer: List<User>
+}
+
+@enduml
