@@ -1,20 +1,46 @@
 @startuml
 
-class Position <Dict> {
- - name: String
-}
-
 class User {
+ - id: UUID
  - email: String
  - name: String
- - position: Position
+ - createdAt: Instant
 }
 
 class Task {
+ - id: UUID
  - title: String
  - description: String
- - assigned: List<User>
- - reviewer: List<User>
+ - status: Status
+ - priority: Priority
+ - createdAt: Instant
+ - updatedAt: Instant
+}
+
+Task "*" -> "0..1" User : assignee
+Task "*" -> "1" User : reporter
+
+class Comment {
+ - id: UUID
+ - content: String
+ - createdAt: Instant
+}
+
+Comment "*" -U-> "1" User : author
+Comment "*" -U-> "1" Task : task
+
+enum Status {
+ - TODO
+ - IN_PROGRESS
+ - DONE
+ - CANCELLED
+}
+
+enum Priority {
+ - LOW
+ - MEDIUM
+ - HIGH
+ - CRITICAL
 }
 
 @enduml
