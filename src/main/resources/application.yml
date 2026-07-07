@@ -1,0 +1,14 @@
+spring:
+  application:
+    name: issue-tracker-jooq
+
+  datasource:
+    url: jdbc:postgresql://localhost:5432/issue_tracker
+    username: postgres
+    password: postgres
+
+  flyway:
+    enabled: true
+
+  jooq:
+    sql-dialect: postgres
