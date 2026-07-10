@@ -1,7 +1,7 @@
 package cz.developerthomas.issuetrackerjooq.task.usecase
 
+import cz.developerthomas.issuetrackerjooq.task.domain.TaskId
 import cz.developerthomas.issuetrackerjooq.task.query.GetTaskDetailQuery
-import cz.developerthomas.issuetrackerjooq.task.view.TaskId
 import org.springframework.stereotype.Service
 
 @Service

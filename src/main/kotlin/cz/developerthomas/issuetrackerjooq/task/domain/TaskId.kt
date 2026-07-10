@@ -1,4 +1,4 @@
-package cz.developerthomas.issuetrackerjooq.task.view
+package cz.developerthomas.issuetrackerjooq.task.domain
 
 import cz.developerthomas.issuetrackerjooq.core.exception.InvalidIdException
 import java.util.*

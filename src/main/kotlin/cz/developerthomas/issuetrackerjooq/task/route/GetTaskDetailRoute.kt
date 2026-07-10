@@ -1,7 +1,7 @@
 package cz.developerthomas.issuetrackerjooq.task.route
 
+import cz.developerthomas.issuetrackerjooq.task.domain.parseTaskId
 import cz.developerthomas.issuetrackerjooq.task.usecase.GetTaskDetailUC
-import cz.developerthomas.issuetrackerjooq.task.view.parseTaskId
 import org.springframework.stereotype.Component
 import org.springframework.web.servlet.function.RouterFunctionDsl
 
