@@ -57,23 +57,20 @@ repositories {
 }
 
 dependencies {
+    // Web
     implementation("org.springframework.boot:spring-boot-starter-validation")
     implementation("org.springframework.boot:spring-boot-starter-webmvc")
 
-    implementation("org.jetbrains.kotlin:kotlin-reflect")
+    // Serialization
     implementation("tools.jackson.module:jackson-module-kotlin")
-    runtimeOnly("org.postgresql:postgresql")
 
-    // Test
-    testImplementation("org.springframework.boot:spring-boot-starter-flyway-test")
-    testImplementation("org.springframework.boot:spring-boot-starter-validation-test")
-    testImplementation("org.springframework.boot:spring-boot-starter-webmvc-test")
-    testImplementation("org.jetbrains.kotlin:kotlin-test-junit5")
-    testRuntimeOnly("org.junit.platform:junit-platform-launcher")
+    // Kotlin
+    implementation("org.jetbrains.kotlin:kotlin-reflect")
 
-    // Flyway
+    // Database
     implementation("org.flywaydb:flyway-database-postgresql")
     implementation("org.springframework.boot:spring-boot-starter-flyway")
+    runtimeOnly("org.postgresql:postgresql")
 
     // JOOQ
     implementation("org.springframework.boot:spring-boot-starter-jooq")
