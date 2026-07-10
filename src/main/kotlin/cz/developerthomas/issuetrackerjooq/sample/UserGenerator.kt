@@ -8,21 +8,27 @@ import java.util.*
 
 @Component
 class UserGenerator(
-    private val dsl: DSLContext
+    private val dsl: DSLContext,
 ) {
 
-    private val sampleUser = AppUserRecord(
-        id = UUID.fromString("38aedc70-d562-4148-90be-a2fae8684eca"),
-        email = "jan.novak@gmail.com",
-        name = "Jan Novák",
-        jobTitle = "Software Engineer",
-    )
+    companion object {
+        val SOFTWARE_ENGINEER = AppUserRecord(
+            id = UUID.fromString("38aedc70-d562-4148-90be-a2fae8684eca"),
+            email = "jan.novak@gmail.com",
+            name = "Jan Novák",
+            jobTitle = "Software Engineer",
+        )
+
+        val PRODUCT_MANAGER = AppUserRecord(
+            id = UUID.fromString("38aedc70-d562-4148-90be-a2fae8684ecb"),
+            email = "john.doe@gmail.com",
+            name = "John Doe",
+            jobTitle = "Product Manager",
+        )
+    }
 
     fun generate() {
-        dsl.insertInto(APP_USER)
-            .set(sampleUser)
-            .onConflict(APP_USER.ID).doUpdate()
-            .set(sampleUser)
-            .execute()
+        dsl.upsertSample(SOFTWARE_ENGINEER, APP_USER, APP_USER.ID)
+        dsl.upsertSample(PRODUCT_MANAGER, APP_USER, APP_USER.ID)
     }
 }

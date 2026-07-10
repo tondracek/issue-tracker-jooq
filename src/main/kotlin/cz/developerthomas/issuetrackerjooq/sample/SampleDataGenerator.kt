@@ -9,10 +9,12 @@ import org.springframework.stereotype.Component
 @Component
 class SampleDataGenerator(
     private val userGenerator: UserGenerator,
+    private val taskGenerator: TaskGenerator
 ) {
 
     @EventListener(ApplicationReadyEvent::class)
     fun generate() {
         userGenerator.generate()
+        taskGenerator.generate()
     }
 }
