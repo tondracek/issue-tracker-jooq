@@ -3,8 +3,6 @@ plugins {
     kotlin("plugin.spring") version "2.3.21"
     id("org.springframework.boot") version "4.1.0"
     id("io.spring.dependency-management") version "1.1.7"
-
-    id("org.jooq.jooq-codegen-gradle") version "3.21.6"
 }
 
 group = "cz.developerthomas"
@@ -14,41 +12,6 @@ description = "issue-tracker-jooq"
 java {
     toolchain {
         languageVersion = JavaLanguageVersion.of(21)
-    }
-}
-
-jooq {
-    configuration {
-        jdbc {
-            driver = "org.postgresql.Driver"
-            url = "jdbc:postgresql://localhost:5432/issue_tracker"
-            user = "postgres"
-            password = "postgres"
-        }
-
-        generator {
-            name = "org.jooq.codegen.KotlinGenerator"
-
-            database {
-                name = "org.jooq.meta.postgres.PostgresDatabase"
-                inputSchema = "public"
-                excludes = "flyway_schema_history"
-            }
-
-            generate {
-                javaTimeTypes = true
-                isPojos = true
-                isImmutablePojos = true
-
-                isKotlinNotNullPojoAttributes = true
-                isKotlinNotNullRecordAttributes = true
-            }
-
-            target {
-                packageName = "cz.developerthomas.issuetrackerjooq"
-                directory = "build/generated-sources/jooq"
-            }
-        }
     }
 }
 
@@ -74,7 +37,6 @@ dependencies {
 
     // JOOQ
     implementation("org.springframework.boot:spring-boot-starter-jooq")
-    jooqCodegen("org.postgresql:postgresql")
 }
 
 kotlin {
@@ -91,4 +53,10 @@ sourceSets {
 
 tasks.withType<Test> {
     useJUnitPlatform()
+}
+
+tasks.register("jooqCodegen") {
+    group = "jOOQ"
+    description = "Starts a temporary PostgreSQL database, applies Flyway migrations, and generates jOOQ sources."
+    dependsOn(":codegen:generateJooq")
 }
