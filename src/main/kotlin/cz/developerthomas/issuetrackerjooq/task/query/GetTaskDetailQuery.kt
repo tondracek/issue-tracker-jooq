@@ -1,18 +1,16 @@
 package cz.developerthomas.issuetrackerjooq.task.query
 
-import cz.developerthomas.issuetrackerjooq.tables.pojos.TaskWithUsers
 import cz.developerthomas.issuetrackerjooq.tables.references.TASK
-import cz.developerthomas.issuetrackerjooq.tables.references.TASK_WITH_USERS
-import cz.developerthomas.issuetrackerjooq.task.api.exception.TaskNotFoundException
+import cz.developerthomas.issuetrackerjooq.tables.references.USER_PREVIEW
 import cz.developerthomas.issuetrackerjooq.task.domain.TaskId
+import cz.developerthomas.issuetrackerjooq.task.exception.TaskNotFoundException
 import cz.developerthomas.issuetrackerjooq.task.view.TaskDetailView
 import cz.developerthomas.issuetrackerjooq.taskcomment.query.GetTaskCommentsQuery
-import cz.developerthomas.issuetrackerjooq.taskcomment.view.TaskCommentDetailView
-import cz.developerthomas.issuetrackerjooq.user.domain.UserId
-import cz.developerthomas.issuetrackerjooq.user.view.UserPreview
+import cz.developerthomas.issuetrackerjooq.user.view.userPreviewRow
+import cz.developerthomas.issuetrackerjooq.user.view.userPreviewRowNullable
 import org.jooq.DSLContext
+import org.jooq.Records
 import org.springframework.stereotype.Repository
-import java.util.*
 
 @Repository
 class GetTaskDetailQuery(
@@ -24,38 +22,29 @@ class GetTaskDetailQuery(
         val taskWithUsers = fetchTaskWithUsers(id)
         val comments = getTaskComments(id)
 
-        return taskWithUsers.toTaskDetailView(comments)
+        return taskWithUsers.copy(comments = comments)
     }
 
-    private fun fetchTaskWithUsers(id: TaskId): TaskWithUsers =
-        dsl.selectFrom(TASK_WITH_USERS)
+    private fun fetchTaskWithUsers(id: TaskId): TaskDetailView {
+        val assignee = USER_PREVIEW.`as`("assignee")
+        val reporter = USER_PREVIEW.`as`("reporter")
+
+        return dsl.select(
+            TASK.ID,
+            TASK.TITLE,
+            TASK.DESCRIPTION,
+            userPreviewRowNullable(assignee),
+            userPreviewRow(reporter),
+            TASK.STATUS,
+            TASK.PRIORITY,
+            TASK.CREATED_AT,
+            TASK.UPDATED_AT,
+        )
+            .from(TASK)
+            .leftJoin(assignee).on(TASK.ASSIGNEE_ID.eq(assignee.ID))
+            .join(reporter).on(TASK.REPORTER_ID.eq(reporter.ID))
             .where(TASK.ID.eq(id.value))
-            .fetchOneInto(TaskWithUsers::class.java)
+            .fetchOne(Records.mapping(TaskDetailView::from))
             ?: throw TaskNotFoundException(id)
+    }
 }
-
-private fun TaskWithUsers.toTaskDetailView(comments: List<TaskCommentDetailView>) = TaskDetailView(
-    id = TaskId(id!!),
-    title = title!!,
-    description = description,
-    assignee = when {
-        assigneeId == null || assigneeName == null -> null
-        else -> toUserPreview(id = assigneeId, name = assigneeName, jobTitle = assigneeJobTitle)
-    },
-    reporter = toUserPreview(id = reporterId!!, name = reporterName!!, jobTitle = reporterJobTitle),
-    status = status!!,
-    priority = priority!!,
-    createdAt = createdAt!!,
-    updatedAt = updatedAt!!,
-    comments = comments,
-)
-
-private fun toUserPreview(
-    id: UUID,
-    name: String,
-    jobTitle: String?
-) = UserPreview(
-    id = UserId(id),
-    name = name,
-    jobTitle = jobTitle,
-)

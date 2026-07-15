@@ -10,7 +10,7 @@ class GetTaskDetailRoute(
     private val getTaskDetailUC: GetTaskDetailUC,
 ) {
 
-    operator fun RouterFunctionDsl.invoke() = GET("/{id}") { request ->
+    operator fun RouterFunctionDsl.invoke(): Unit = GET("/{id}") { request ->
         val id = request.pathVariable("id").parseTaskId()
 
         val taskDetail = getTaskDetailUC(id)

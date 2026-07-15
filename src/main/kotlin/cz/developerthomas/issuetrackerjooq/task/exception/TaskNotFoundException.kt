@@ -1,4 +1,4 @@
-package cz.developerthomas.issuetrackerjooq.task.api.exception
+package cz.developerthomas.issuetrackerjooq.task.exception
 
 import cz.developerthomas.issuetrackerjooq.core.exception.AppException
 import cz.developerthomas.issuetrackerjooq.core.exception.ErrorCode

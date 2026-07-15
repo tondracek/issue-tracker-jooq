@@ -9,5 +9,4 @@ data class TaskCommentDetailView(
     val content: String,
     val author: UserPreview,
     val createdAt: LocalDateTime? = null,
-    val updatedAt: LocalDateTime? = null,
 )
