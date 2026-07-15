@@ -40,11 +40,23 @@ class TaskGenerator(
                 authorId = UserGenerator.SOFTWARE_ENGINEER.id,
             )
         )
+
+        private val DEMO_TASK_2 = TaskRecord(
+            id = UUID.fromString("3a07cd9e-a767-4b43-901c-3367cce4c5c5"),
+            title = "Demo Task 2",
+            description = "This is another demo task for testing purposes.",
+            status = TaskStatus.IN_PROGRESS,
+            priority = TaskPriority.HIGH,
+            assigneeId = null,
+            reporterId = UserGenerator.PRODUCT_MANAGER.id,
+        )
     }
 
     fun generate() {
         dsl.upsertSample(DEMO_TASK, TASK, TASK.ID)
         dsl.upsertSample(DEMO_TASK_COMMENTS[0], TASK_COMMENT, TASK_COMMENT.ID)
         dsl.upsertSample(DEMO_TASK_COMMENTS[1], TASK_COMMENT, TASK_COMMENT.ID)
+
+        dsl.upsertSample(DEMO_TASK_2, TASK, TASK.ID)
     }
 }

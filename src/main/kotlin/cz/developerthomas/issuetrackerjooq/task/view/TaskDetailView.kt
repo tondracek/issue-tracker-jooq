@@ -13,9 +13,9 @@ data class TaskDetailView(
     val description: String? = null,
     val assignee: UserPreview? = null,
     val reporter: UserPreview,
-    val status: TaskStatus? = null,
+    val status: TaskStatus,
     val priority: TaskPriority,
-    val createdAt: LocalDateTime? = null,
-    val updatedAt: LocalDateTime? = null,
+    val createdAt: LocalDateTime,
+    val updatedAt: LocalDateTime,
     val comments: List<TaskCommentDetailView>,
 )

@@ -14,5 +14,5 @@ class GetTaskCommentsQuery(
     operator fun invoke(taskId: TaskId): List<TaskCommentDetailView> =
         dsl.selectFrom(TASK_COMMENT)
             .where(TASK_COMMENT.TASK_ID.eq(taskId.value))
-            .fetchInto(TaskCommentDetailView::class.java)
+            .fetchInto(TaskCommentDetailView::class.java) // TODO: no author
 }
