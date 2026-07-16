@@ -1,7 +1,7 @@
 package cz.developerthomas.issuetrackerjooq.task.query
 
+import cz.developerthomas.issuetrackerjooq.tables.references.APP_USER
 import cz.developerthomas.issuetrackerjooq.tables.references.TASK
-import cz.developerthomas.issuetrackerjooq.tables.references.USER_PREVIEW
 import cz.developerthomas.issuetrackerjooq.task.domain.TaskId
 import cz.developerthomas.issuetrackerjooq.task.exception.TaskNotFoundException
 import cz.developerthomas.issuetrackerjooq.task.view.TaskDetailView
@@ -26,8 +26,8 @@ class GetTaskDetailQuery(
     }
 
     private fun fetchTaskWithUsers(id: TaskId): TaskDetailView {
-        val assignee = USER_PREVIEW.`as`("assignee")
-        val reporter = USER_PREVIEW.`as`("reporter")
+        val assignee = APP_USER.`as`("assignee")
+        val reporter = APP_USER.`as`("reporter")
 
         return dsl.select(
             TASK.ID,
@@ -43,7 +43,7 @@ class GetTaskDetailQuery(
             .from(TASK)
             .leftJoin(assignee).on(TASK.ASSIGNEE_ID.eq(assignee.ID))
             .join(reporter).on(TASK.REPORTER_ID.eq(reporter.ID))
-            .where(TASK.ID.eq(id.value))
+            .where(TASK.ID.eq(id))
             .fetchOne(Records.mapping(TaskDetailView::from))
             ?: throw TaskNotFoundException(id)
     }

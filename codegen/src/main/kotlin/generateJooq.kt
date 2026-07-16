@@ -12,6 +12,11 @@ private val jooqGenerator: Generator = Generator()
             .withName("org.jooq.meta.postgres.PostgresDatabase")
             .withInputSchema("public")
             .withExcludes("flyway_schema_history")
+            .withForcedTypes(
+                userIdForcedType,
+                taskIdForcedType,
+                taskCommentIdForcedType,
+            )
     )
     .withGenerate(
         Generate()

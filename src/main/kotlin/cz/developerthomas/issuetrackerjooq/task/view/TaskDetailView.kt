@@ -6,7 +6,6 @@ import cz.developerthomas.issuetrackerjooq.task.domain.TaskId
 import cz.developerthomas.issuetrackerjooq.taskcomment.view.TaskCommentDetailView
 import cz.developerthomas.issuetrackerjooq.user.view.UserPreview
 import java.time.LocalDateTime
-import java.util.*
 
 data class TaskDetailView(
     val id: TaskId,
@@ -18,11 +17,11 @@ data class TaskDetailView(
     val priority: TaskPriority,
     val createdAt: LocalDateTime,
     val updatedAt: LocalDateTime,
-    val comments: List<TaskCommentDetailView>
+    val comments: List<TaskCommentDetailView>,
 ) {
     companion object {
         fun from(
-            id: UUID,
+            id: TaskId,
             title: String,
             description: String?,
             assignee: UserPreview?,
@@ -30,9 +29,9 @@ data class TaskDetailView(
             status: TaskStatus,
             priority: TaskPriority,
             createdAt: LocalDateTime,
-            updatedAt: LocalDateTime
+            updatedAt: LocalDateTime,
         ) = TaskDetailView(
-            id = TaskId(id),
+            id = id,
             title = title,
             description = description,
             assignee = assignee,
@@ -41,7 +40,7 @@ data class TaskDetailView(
             priority = priority,
             createdAt = createdAt,
             updatedAt = updatedAt,
-            comments = emptyList()
+            comments = emptyList(),
         )
     }
 }
