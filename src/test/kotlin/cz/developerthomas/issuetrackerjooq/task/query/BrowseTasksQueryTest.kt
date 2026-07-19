@@ -157,6 +157,33 @@ class BrowseTasksQueryTest : IntegrationTest() {
     }
 
     @Test
+    fun `filters unassigned tasks when assignee filter contains null`() {
+        val reporter = dsl.insertUser(name = "Reporter")
+        val assignee = dsl.insertUser(name = "Assignee")
+
+        val assignedTask = dsl.insertTask(
+            title = "Assigned task",
+            reporterId = reporter.id,
+            assigneeId = assignee.id,
+        )
+        val unassignedTask1 = dsl.insertTask(
+            title = "Unassigned task 1",
+            reporterId = reporter.id,
+            assigneeId = null,
+        )
+        val unassignedTask2 = dsl.insertTask(
+            title = "Unassigned task 2",
+            reporterId = reporter.id,
+            assigneeId = null,
+        )
+
+        val result = browse(emptyFilter().copy(assignee = listOf(null)))
+
+        assertThat(result.map { it.id }).containsExactlyInAnyOrder(unassignedTask1.id, unassignedTask2.id)
+        assertThat(result.map { it.id }).doesNotContain(assignedTask.id)
+    }
+
+    @Test
     fun `filters text in title and description case insensitively`() {
         val reporter = dsl.insertUser(name = "Reporter")
 

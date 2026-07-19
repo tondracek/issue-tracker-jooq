@@ -55,8 +55,10 @@ private fun getTextCondition(text: String?) = when {
     )
 }
 
-private fun <T> Field<T?>.inOptional(values: List<T>?) = when {
+private fun <T> Field<T?>.inOptional(values: List<T?>?) = when {
     values.isNullOrEmpty() -> trueCondition()
+    values.filterNotNull().isEmpty() -> this.isNull
+    values.contains(null) -> this.`in`(values.filterNotNull()).or(this.isNull)
     else -> this.`in`(values)
 }
 
