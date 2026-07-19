@@ -1,5 +1,6 @@
 package cz.developerthomas.issuetrackerjooq.task.usecase
 
+import cz.developerthomas.issuetrackerjooq.auth.usecase.GetLoggedUserIdUC
 import cz.developerthomas.issuetrackerjooq.enums.TaskStatus
 import cz.developerthomas.issuetrackerjooq.task.domain.TaskId
 import cz.developerthomas.issuetrackerjooq.task.dto.CreateTaskRequest
@@ -17,12 +18,15 @@ class CreateTaskUC(
     private val createTaskQuery: CreateTaskQuery,
     private val getTaskDetailQuery: GetTaskDetailQuery,
     private val userValidator: UserValidator,
+    private val getLoggedUserId: GetLoggedUserIdUC,
 ) {
 
     operator fun invoke(taskRequest: CreateTaskRequest): TaskDetailView {
-        val newId = TaskId(UUID.randomUUID())
-        val initialStatus = TaskStatus.TODO
-        val createTaskCommand = taskRequest.toCommand(id = newId, status = initialStatus)
+        val createTaskCommand = taskRequest.toCommand(
+            id = TaskId(UUID.randomUUID()),
+            reporterId = getLoggedUserId(),
+            status = TaskStatus.TODO,
+        )
 
         validate(createTaskCommand)
 

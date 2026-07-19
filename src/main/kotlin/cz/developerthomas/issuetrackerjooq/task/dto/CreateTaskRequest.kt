@@ -10,12 +10,12 @@ data class CreateTaskRequest(
     val title: String,
     val description: String?,
     val assigneeId: UserId?,
-    val reporterId: UserId,
     val priority: TaskPriority,
 )
 
 fun CreateTaskRequest.toCommand(
     id: TaskId,
+    reporterId: UserId,
     status: TaskStatus,
 ) = CreateTaskCommand(
     id = id,
