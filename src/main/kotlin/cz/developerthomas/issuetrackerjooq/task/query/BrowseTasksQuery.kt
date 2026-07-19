@@ -55,11 +55,17 @@ private fun getTextCondition(text: String?) = when {
     )
 }
 
-private fun <T> Field<T?>.inOptional(values: List<T?>?) = when {
-    values.isNullOrEmpty() -> trueCondition()
-    values.filterNotNull().isEmpty() -> this.isNull
-    values.contains(null) -> this.`in`(values.filterNotNull()).or(this.isNull)
-    else -> this.`in`(values)
+private fun <T> Field<T?>.inOptional(values: List<T?>?): Condition {
+    if (values.isNullOrEmpty()) return trueCondition()
+
+    val nonNull = values.filterNotNull()
+    val containsNull = nonNull.size != values.size
+
+    return when {
+        nonNull.isEmpty() -> this.isNull
+        containsNull -> this.`in`(nonNull).or(this.isNull)
+        else -> this.`in`(nonNull)
+    }
 }
 
 private fun getOrderingField(filter: TaskBrowseFilter) = when (filter.orderBy) {
