@@ -52,6 +52,23 @@ class BrowseTasksQueryTest : IntegrationTest() {
     }
 
     @Test
+    fun `filters by multiple statuses`() {
+        val reporter = dsl.insertUser(name = "Reporter")
+
+        dsl.insertTask(title = "TODO task", reporterId = reporter.id, status = TaskStatus.TODO)
+        val inProgressTask = dsl.insertTask(
+            title = "In progress task",
+            reporterId = reporter.id,
+            status = TaskStatus.IN_PROGRESS,
+        )
+        val doneTask = dsl.insertTask(title = "Done task", reporterId = reporter.id, status = TaskStatus.DONE)
+
+        val result = browse(emptyFilter().copy(status = listOf(TaskStatus.IN_PROGRESS, TaskStatus.DONE)))
+
+        assertThat(result.map { it.id }).containsExactlyInAnyOrder(inProgressTask.id, doneTask.id)
+    }
+
+    @Test
     fun `filters by priority`() {
         val reporter = dsl.insertUser(name = "Reporter")
 
@@ -73,7 +90,51 @@ class BrowseTasksQueryTest : IntegrationTest() {
     }
 
     @Test
+    fun `filters by multiple priorities`() {
+        val reporter = dsl.insertUser(name = "Reporter")
+
+        dsl.insertTask(title = "Low priority task", reporterId = reporter.id, priority = TaskPriority.LOW)
+        val highPriorityTask = dsl.insertTask(
+            title = "High priority task",
+            reporterId = reporter.id,
+            priority = TaskPriority.HIGH,
+        )
+        val mediumPriorityTask = dsl.insertTask(
+            title = "Medium priority task",
+            reporterId = reporter.id,
+            priority = TaskPriority.MEDIUM,
+        )
+
+        val result = browse(emptyFilter().copy(priority = listOf(TaskPriority.HIGH, TaskPriority.MEDIUM)))
+
+        assertThat(result.map { it.id }).containsExactlyInAnyOrder(highPriorityTask.id, mediumPriorityTask.id)
+    }
+
+    @Test
     fun `filters by assignee`() {
+        val reporter = dsl.insertUser(name = "Reporter")
+        val assignee1 = dsl.insertUser(name = "Assignee 1")
+        val assignee2 = dsl.insertUser(name = "Assignee 2")
+
+        val task1 = dsl.insertTask(
+            title = "Task for assignee 1",
+            reporterId = reporter.id,
+            assigneeId = assignee1.id,
+        )
+        val task2 = dsl.insertTask(
+            title = "Task for assignee 2",
+            reporterId = reporter.id,
+            assigneeId = assignee2.id,
+        )
+        dsl.insertTask(title = "Unassigned task", reporterId = reporter.id, assigneeId = null)
+
+        val result = browse(emptyFilter().copy(assignee = listOf(assignee1.id, assignee2.id)))
+
+        assertThat(result.map { it.id }).containsExactlyInAnyOrder(task1.id, task2.id)
+    }
+
+    @Test
+    fun `filters by multiple assignees`() {
         val reporter = dsl.insertUser(name = "Reporter")
         val assignee1 = dsl.insertUser(name = "Assignee 1")
         val assignee2 = dsl.insertUser(name = "Assignee 2")
