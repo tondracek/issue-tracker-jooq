@@ -1,10 +1,12 @@
 package cz.developerthomas.issuetrackerjooq.sample
 
+import cz.developerthomas.issuetrackerjooq.auth.domain.AuthId
 import cz.developerthomas.issuetrackerjooq.tables.records.AppUserRecord
 import cz.developerthomas.issuetrackerjooq.tables.references.APP_USER
 import cz.developerthomas.issuetrackerjooq.user.domain.UserId
 import org.jooq.DSLContext
 import org.springframework.stereotype.Component
+import java.util.*
 
 @Component
 class UserGenerator(
@@ -14,6 +16,7 @@ class UserGenerator(
     companion object {
         val SOFTWARE_ENGINEER = AppUserRecord(
             id = UserId.fromString("38aedc70-d562-4148-90be-a2fae8684eca"),
+            authId = AuthId(UUID.randomUUID().toString()),
             email = "jan.novak@gmail.com",
             name = "Jan Novák",
             jobTitle = "Software Engineer",
@@ -21,6 +24,7 @@ class UserGenerator(
 
         val PRODUCT_MANAGER = AppUserRecord(
             id = UserId.fromString("38aedc70-d562-4148-90be-a2fae8684ecb"),
+            authId = AuthId(UUID.randomUUID().toString()),
             email = "john.doe@gmail.com",
             name = "John Doe",
             jobTitle = "Product Manager",

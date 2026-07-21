@@ -20,6 +20,12 @@ repositories {
 }
 
 dependencies {
+    // Test
+    testImplementation("org.springframework.boot:spring-boot-starter-test")
+    testImplementation("org.springframework.boot:spring-boot-testcontainers")
+    testImplementation("org.testcontainers:junit-jupiter:1.21.4")
+    testImplementation("org.testcontainers:postgresql:1.21.4")
+
     // Web
     implementation("org.springframework.boot:spring-boot-starter-validation")
     implementation("org.springframework.boot:spring-boot-starter-webmvc")
@@ -38,11 +44,8 @@ dependencies {
     // JOOQ
     implementation("org.springframework.boot:spring-boot-starter-jooq")
 
-    // Test
-    testImplementation("org.springframework.boot:spring-boot-starter-test")
-    testImplementation("org.springframework.boot:spring-boot-testcontainers")
-    testImplementation("org.testcontainers:junit-jupiter:1.21.4")
-    testImplementation("org.testcontainers:postgresql:1.21.4")
+    // Security
+    implementation("org.springframework.boot:spring-boot-starter-oauth2-resource-server")
 }
 
 kotlin {
