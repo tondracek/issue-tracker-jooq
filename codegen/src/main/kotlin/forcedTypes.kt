@@ -15,6 +15,15 @@ val userIdForcedType: ForcedType = ForcedType()
         )
     )
 
+val authIdForcedType: ForcedType = ForcedType()
+    .withUserType("cz.developerthomas.issuetrackerjooq.auth.domain.AuthId")
+    .withConverter("cz.developerthomas.issuetrackerjooq.core.jooq.AuthIdConverter")
+    .withIncludeExpression(
+        columns(
+            "app_user.auth_id",
+        )
+    )
+
 val taskIdForcedType: ForcedType = ForcedType()
     .withUserType("cz.developerthomas.issuetrackerjooq.task.domain.TaskId")
     .withConverter("cz.developerthomas.issuetrackerjooq.core.jooq.TaskIdConverter")

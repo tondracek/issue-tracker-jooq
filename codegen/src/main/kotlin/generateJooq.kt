@@ -14,6 +14,7 @@ private val jooqGenerator: Generator = Generator()
             .withExcludes("flyway_schema_history")
             .withForcedTypes(
                 userIdForcedType,
+                authIdForcedType,
                 taskIdForcedType,
                 taskCommentIdForcedType,
             )

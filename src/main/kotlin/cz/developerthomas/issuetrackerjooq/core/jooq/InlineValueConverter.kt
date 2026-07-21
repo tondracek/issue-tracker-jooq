@@ -1,5 +1,6 @@
 package cz.developerthomas.issuetrackerjooq.core.jooq
 
+import cz.developerthomas.issuetrackerjooq.auth.domain.AuthId
 import cz.developerthomas.issuetrackerjooq.task.domain.TaskId
 import cz.developerthomas.issuetrackerjooq.taskcomment.domain.TaskCommentId
 import cz.developerthomas.issuetrackerjooq.user.domain.UserId
@@ -31,6 +32,11 @@ class TaskIdConverter : InlineValueConverter<TaskId>(
 class UserIdConverter : InlineValueConverter<UserId>(
     ::UserId,
     UserId::value,
+)
+
+class AuthIdConverter : InlineValueConverter<AuthId>(
+    ::AuthId,
+    AuthId::value,
 )
 
 class TaskCommentIdConverter : InlineValueConverter<TaskCommentId>(
