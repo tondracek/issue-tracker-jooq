@@ -1,7 +1,8 @@
 spring:
   application:
     name: issue-tracker-jooq
-
+  config:
+    import: optional:application-secrets.yml
   profiles:
     active: dev
 
@@ -12,16 +13,18 @@ spring:
 
   flyway:
     enabled: true
-
   jooq:
     sql-dialect: postgres
-
   jackson:
     deserialization:
       fail-on-unknown-properties: true
-
   security:
     oauth2:
       resourceserver:
         jwt:
           issuer-uri: http://localhost:8081/realms/issue-tracker
+
+keycloak:
+  server-url: http://localhost:8081
+  realm: issue-tracker
+  client-id: issue-tracker-backend

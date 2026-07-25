@@ -46,6 +46,7 @@ dependencies {
 
     // Security
     implementation("org.springframework.boot:spring-boot-starter-oauth2-resource-server")
+    implementation("org.keycloak:keycloak-admin-client:26.0.10")
 }
 
 kotlin {

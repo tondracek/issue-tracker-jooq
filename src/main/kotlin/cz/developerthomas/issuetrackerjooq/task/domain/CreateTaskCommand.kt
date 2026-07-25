@@ -1,9 +1,8 @@
-package cz.developerthomas.issuetrackerjooq.task.query
+package cz.developerthomas.issuetrackerjooq.task.domain
 
 import cz.developerthomas.issuetrackerjooq.enums.TaskPriority
 import cz.developerthomas.issuetrackerjooq.enums.TaskStatus
 import cz.developerthomas.issuetrackerjooq.tables.records.TaskRecord
-import cz.developerthomas.issuetrackerjooq.task.domain.TaskId
 import cz.developerthomas.issuetrackerjooq.user.domain.UserId
 
 data class CreateTaskCommand(

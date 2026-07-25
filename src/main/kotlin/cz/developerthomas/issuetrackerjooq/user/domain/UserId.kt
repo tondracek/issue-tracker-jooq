@@ -8,5 +8,7 @@ value class UserId(val value: UUID) {
     companion object {
         fun fromString(uuid: String): UserId =
             UserId(uuid.parseUUID())
+
+        fun newId() = UserId(UUID.randomUUID())
     }
 }

@@ -2,8 +2,8 @@ package cz.developerthomas.issuetrackerjooq.task.dto
 
 import cz.developerthomas.issuetrackerjooq.enums.TaskPriority
 import cz.developerthomas.issuetrackerjooq.enums.TaskStatus
+import cz.developerthomas.issuetrackerjooq.task.domain.CreateTaskCommand
 import cz.developerthomas.issuetrackerjooq.task.domain.TaskId
-import cz.developerthomas.issuetrackerjooq.task.query.CreateTaskCommand
 import cz.developerthomas.issuetrackerjooq.user.domain.UserId
 
 data class CreateTaskRequest(

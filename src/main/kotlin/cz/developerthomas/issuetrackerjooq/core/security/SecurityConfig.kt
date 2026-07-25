@@ -6,19 +6,25 @@ import org.springframework.security.config.annotation.web.builders.HttpSecurity
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity
 import org.springframework.security.web.SecurityFilterChain
 
+private val permittedRoutes = listOf(
+    "/auth/test",
+)
+
 @Configuration
 @EnableWebSecurity
 class SecurityConfig {
 
     @Bean
-    fun filterChain(http: HttpSecurity): SecurityFilterChain =
-        http
+    fun filterChain(http: HttpSecurity): SecurityFilterChain {
+        return http
             .csrf { it.disable() }
             .authorizeHttpRequests {
+                permittedRoutes.forEach { path -> it.requestMatchers(path).permitAll() }
                 it.anyRequest().authenticated()
             }
             .oauth2ResourceServer {
                 it.jwt { }
             }
             .build()
+    }
 }

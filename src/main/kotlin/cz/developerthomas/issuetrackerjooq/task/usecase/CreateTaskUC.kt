@@ -2,10 +2,10 @@ package cz.developerthomas.issuetrackerjooq.task.usecase
 
 import cz.developerthomas.issuetrackerjooq.auth.usecase.GetLoggedUserUC
 import cz.developerthomas.issuetrackerjooq.enums.TaskStatus
+import cz.developerthomas.issuetrackerjooq.task.domain.CreateTaskCommand
 import cz.developerthomas.issuetrackerjooq.task.domain.TaskId
 import cz.developerthomas.issuetrackerjooq.task.dto.CreateTaskRequest
 import cz.developerthomas.issuetrackerjooq.task.dto.toCommand
-import cz.developerthomas.issuetrackerjooq.task.query.CreateTaskCommand
 import cz.developerthomas.issuetrackerjooq.task.query.CreateTaskQuery
 import cz.developerthomas.issuetrackerjooq.task.query.GetTaskDetailQuery
 import cz.developerthomas.issuetrackerjooq.task.view.TaskDetailView
