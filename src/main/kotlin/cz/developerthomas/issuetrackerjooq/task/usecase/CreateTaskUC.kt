@@ -6,7 +6,7 @@ import cz.developerthomas.issuetrackerjooq.task.domain.CreateTaskCommand
 import cz.developerthomas.issuetrackerjooq.task.domain.TaskId
 import cz.developerthomas.issuetrackerjooq.task.dto.CreateTaskRequest
 import cz.developerthomas.issuetrackerjooq.task.dto.toCommand
-import cz.developerthomas.issuetrackerjooq.task.query.CreateTaskQuery
+import cz.developerthomas.issuetrackerjooq.task.query.CreateTaskCommandHandler
 import cz.developerthomas.issuetrackerjooq.task.query.GetTaskDetailQuery
 import cz.developerthomas.issuetrackerjooq.task.view.TaskDetailView
 import cz.developerthomas.issuetrackerjooq.user.domain.UserValidator
@@ -15,7 +15,7 @@ import java.util.*
 
 @Service
 class CreateTaskUC(
-    private val createTaskQuery: CreateTaskQuery,
+    private val createTaskCommand: CreateTaskCommandHandler,
     private val getTaskDetailQuery: GetTaskDetailQuery,
     private val userValidator: UserValidator,
     private val getLoggedUserId: GetLoggedUserUC,
@@ -30,7 +30,7 @@ class CreateTaskUC(
 
         validate(createTaskCommand)
 
-        val createdId = createTaskQuery(createTaskCommand)
+        val createdId = createTaskCommand(createTaskCommand)
         return getTaskDetailQuery(createdId)
     }
 

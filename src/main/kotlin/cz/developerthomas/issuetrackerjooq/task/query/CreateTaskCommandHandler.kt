@@ -8,7 +8,7 @@ import org.jooq.DSLContext
 import org.springframework.stereotype.Repository
 
 @Repository
-class CreateTaskQuery(
+class CreateTaskCommandHandler(
     private val dsl: DSLContext,
 ) {
 
