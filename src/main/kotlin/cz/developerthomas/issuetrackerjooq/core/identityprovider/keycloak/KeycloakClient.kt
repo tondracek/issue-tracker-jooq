@@ -30,6 +30,7 @@ class KeycloakClient(
             this.email = email
             isEnabled = true
             credentials = listOf(credential)
+            isEmailVerified = true
         }
 
         val response = users.create(user)

@@ -7,7 +7,8 @@ import org.springframework.security.config.annotation.web.configuration.EnableWe
 import org.springframework.security.web.SecurityFilterChain
 
 private val permittedRoutes = listOf(
-    "/auth/test",
+    "/auth/register",
+    "/error",
 )
 
 @Configuration

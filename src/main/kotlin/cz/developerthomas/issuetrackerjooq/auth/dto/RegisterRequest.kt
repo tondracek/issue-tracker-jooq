@@ -9,7 +9,6 @@ data class RegisterRequest(
     val name: String,
     val jobTitle: String? = null,
     val password: String,
-    val passwordConfirmation: String,
 )
 
 fun RegisterRequest.toCommand(

@@ -24,6 +24,10 @@ spring:
         jwt:
           issuer-uri: http://localhost:8081/realms/issue-tracker
 
+server:
+  servlet:
+    context-path: /api
+
 keycloak:
   server-url: http://localhost:8081
   realm: issue-tracker
