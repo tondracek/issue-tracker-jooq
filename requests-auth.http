@@ -1,0 +1,25 @@
+### Register test user
+POST http://localhost:8080/api/auth/register
+Content-Type: application/json
+
+{
+  "email": "test@example.com",
+  "name": "Test User",
+  "jobTitle": "Software Developer",
+  "password": "Password123!"
+}
+
+###
+
+### Login
+POST http://localhost:8081/realms/issue-tracker/protocol/openid-connect/token
+Content-Type: application/x-www-form-urlencoded
+
+grant_type=password&
+client_id=issue-tracker-api&
+username=test@example.com&
+password=Password123!
+
+> {%
+    client.global.set("access_token", response.body.access_token);
+%}

@@ -9,4 +9,7 @@ enum class ErrorCode {
 
     // USER
     USER_NOT_FOUND,
+
+    // Auth
+    NOT_LOGGED_IN,
 }
