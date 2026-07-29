@@ -16,6 +16,7 @@ class GetUserByAuthIdQuery(
         dsl.select(
             APP_USER.ID,
             APP_USER.AUTH_ID,
+            APP_USER.ROLE,
         )
             .from(APP_USER)
             .where(APP_USER.AUTH_ID.eq(authId))
