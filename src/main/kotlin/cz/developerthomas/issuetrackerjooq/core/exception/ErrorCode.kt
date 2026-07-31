@@ -6,6 +6,8 @@ enum class ErrorCode {
 
     // TASK
     TASK_NOT_FOUND,
+    INVALID_STATUS_TRANSITION,
+    FORBIDDEN_STATUS_TRANSITION,
 
     // USER
     USER_NOT_FOUND,
