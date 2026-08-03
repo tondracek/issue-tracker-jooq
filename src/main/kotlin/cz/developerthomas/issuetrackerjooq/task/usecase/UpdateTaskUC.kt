@@ -10,6 +10,7 @@ import cz.developerthomas.issuetrackerjooq.task.domain.status.validateStatusTran
 import cz.developerthomas.issuetrackerjooq.task.dto.UpdateTaskRequest
 import cz.developerthomas.issuetrackerjooq.task.dto.toCommand
 import cz.developerthomas.issuetrackerjooq.task.query.GetTaskDetailQuery
+import cz.developerthomas.issuetrackerjooq.task.query.GetTaskQuery
 import cz.developerthomas.issuetrackerjooq.task.query.UpdateTaskCommandHandler
 import cz.developerthomas.issuetrackerjooq.task.view.TaskDetailView
 import cz.developerthomas.issuetrackerjooq.user.domain.UserValidator

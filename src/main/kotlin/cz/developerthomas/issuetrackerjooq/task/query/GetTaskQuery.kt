@@ -1,4 +1,4 @@
-package cz.developerthomas.issuetrackerjooq.task.usecase
+package cz.developerthomas.issuetrackerjooq.task.query
 
 import cz.developerthomas.issuetrackerjooq.tables.pojos.Task
 import cz.developerthomas.issuetrackerjooq.tables.references.TASK

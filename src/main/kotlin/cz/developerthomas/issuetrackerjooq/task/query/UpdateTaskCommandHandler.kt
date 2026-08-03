@@ -9,6 +9,7 @@ import org.jooq.Record
 import org.jooq.TableField
 import org.jooq.UpdateQuery
 import org.springframework.stereotype.Repository
+import java.time.LocalDateTime
 
 @Repository
 class UpdateTaskCommandHandler(
@@ -24,6 +25,8 @@ class UpdateTaskCommandHandler(
         update.addValueIfSpecified(TASK.REPORTER_ID, updateTaskCommand.reporterId)
         update.addValueIfSpecified(TASK.STATUS, updateTaskCommand.status)
         update.addValueIfSpecified(TASK.PRIORITY, updateTaskCommand.priority)
+
+        update.addValue(TASK.UPDATED_AT, LocalDateTime.now())
 
         update.addConditions(TASK.ID.eq(id))
         update.execute()
