@@ -17,6 +17,7 @@ private val jooqGenerator: Generator = Generator()
                 authIdForcedType,
                 taskIdForcedType,
                 taskCommentIdForcedType,
+                auditLogIdForcedType,
             )
     )
     .withGenerate(

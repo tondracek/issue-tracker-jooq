@@ -12,6 +12,7 @@ val userIdForcedType: ForcedType = ForcedType()
             "task.assignee_id",
             "task.reporter_id",
             "task_comment.author_id",
+            "audit_log.author_id",
         )
     )
 
@@ -40,5 +41,14 @@ val taskCommentIdForcedType: ForcedType = ForcedType()
     .withIncludeExpression(
         columns(
             "task_comment.id",
+        )
+    )
+
+val auditLogIdForcedType: ForcedType = ForcedType()
+    .withUserType("cz.developerthomas.issuetrackerjooq.audit.domain.AuditLogId")
+    .withConverter("cz.developerthomas.issuetrackerjooq.core.jooq.AuditLogIdConverter")
+    .withIncludeExpression(
+        columns(
+            "audit_log.id",
         )
     )

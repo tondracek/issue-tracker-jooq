@@ -1,5 +1,6 @@
 package cz.developerthomas.issuetrackerjooq.core.jooq
 
+import cz.developerthomas.issuetrackerjooq.audit.domain.AuditLogId
 import cz.developerthomas.issuetrackerjooq.auth.domain.AuthId
 import cz.developerthomas.issuetrackerjooq.task.domain.TaskId
 import cz.developerthomas.issuetrackerjooq.taskcomment.domain.TaskCommentId
@@ -46,5 +47,11 @@ class AuthIdConverter : InlineValueConverter<AuthId, String>(
 class TaskCommentIdConverter : InlineValueConverter<TaskCommentId, UUID>(
     ::TaskCommentId,
     TaskCommentId::value,
+    UUID::class.java
+)
+
+class AuditLogIdConverter : InlineValueConverter<AuditLogId, UUID>(
+    ::AuditLogId,
+    AuditLogId::value,
     UUID::class.java
 )
