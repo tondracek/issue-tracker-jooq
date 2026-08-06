@@ -27,8 +27,5 @@ jobs:
       - name: Grant execute permission
         run: chmod +x gradlew
 
-      - name: Generate jOOQ
-        run: ./gradlew jooqCodegen
-
-      - name: Assemble
-        run: ./gradlew assemble
+      - name: Build
+        run: ./gradlew jooqCodegen assemble
