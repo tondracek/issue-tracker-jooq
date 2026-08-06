@@ -3,7 +3,7 @@ package cz.developerthomas.issuetrackerjooq.task.usecase
 import cz.developerthomas.issuetrackerjooq.auth.usecase.GetLoggedUserUC
 import cz.developerthomas.issuetrackerjooq.core.fieldupdate.onValue
 import cz.developerthomas.issuetrackerjooq.core.fieldupdate.onValueNotNull
-import cz.developerthomas.issuetrackerjooq.tables.pojos.Task
+import cz.developerthomas.issuetrackerjooq.task.domain.Task
 import cz.developerthomas.issuetrackerjooq.task.domain.TaskId
 import cz.developerthomas.issuetrackerjooq.task.domain.UpdateTaskCommand
 import cz.developerthomas.issuetrackerjooq.task.domain.status.validateStatusTransition

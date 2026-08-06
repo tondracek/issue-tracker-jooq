@@ -12,6 +12,7 @@ open class InlineValueConverter<T : Any, ID>(
     private val from: (ID) -> T,
     private val to: (T) -> ID,
     private val idClass: Class<ID>,
+    private val customIdClass: Class<T>,
 ) : Converter<ID, T> {
 
     override fun from(databaseObject: ID?): T? =
@@ -22,36 +23,40 @@ open class InlineValueConverter<T : Any, ID>(
 
     override fun fromType() = idClass
 
-    @Suppress("UNCHECKED_CAST")
-    override fun toType() = Any::class.java as Class<T>
+    override fun toType() = customIdClass
 }
 
 class TaskIdConverter : InlineValueConverter<TaskId, UUID>(
     ::TaskId,
     TaskId::value,
-    UUID::class.java
+    UUID::class.java,
+    TaskId::class.java
 )
 
 class UserIdConverter : InlineValueConverter<UserId, UUID>(
     ::UserId,
     UserId::value,
-    UUID::class.java
+    UUID::class.java,
+    UserId::class.java
 )
 
 class AuthIdConverter : InlineValueConverter<AuthId, String>(
     ::AuthId,
     AuthId::value,
-    String::class.java
+    String::class.java,
+    AuthId::class.java,
 )
 
 class TaskCommentIdConverter : InlineValueConverter<TaskCommentId, UUID>(
     ::TaskCommentId,
     TaskCommentId::value,
-    UUID::class.java
+    UUID::class.java,
+    TaskCommentId::class.java,
 )
 
 class AuditLogIdConverter : InlineValueConverter<AuditLogId, UUID>(
     ::AuditLogId,
     AuditLogId::value,
-    UUID::class.java
+    UUID::class.java,
+    AuditLogId::class.java,
 )

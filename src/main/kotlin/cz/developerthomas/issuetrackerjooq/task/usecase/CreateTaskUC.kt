@@ -1,5 +1,6 @@
 package cz.developerthomas.issuetrackerjooq.task.usecase
 
+import cz.developerthomas.issuetrackerjooq.audit.service.AuditLogService
 import cz.developerthomas.issuetrackerjooq.auth.usecase.GetLoggedUserUC
 import cz.developerthomas.issuetrackerjooq.enums.TaskStatus
 import cz.developerthomas.issuetrackerjooq.task.domain.CreateTaskCommand
@@ -11,6 +12,7 @@ import cz.developerthomas.issuetrackerjooq.task.query.GetTaskDetailQuery
 import cz.developerthomas.issuetrackerjooq.task.view.TaskDetailView
 import cz.developerthomas.issuetrackerjooq.user.domain.UserValidator
 import org.springframework.stereotype.Service
+import org.springframework.transaction.annotation.Transactional
 import java.util.*
 
 @Service
@@ -19,8 +21,10 @@ class CreateTaskUC(
     private val getTaskDetailQuery: GetTaskDetailQuery,
     private val userValidator: UserValidator,
     private val getLoggedUserId: GetLoggedUserUC,
+    private val auditLogService: AuditLogService,
 ) {
 
+    @Transactional
     operator fun invoke(taskRequest: CreateTaskRequest): TaskDetailView {
         val createTaskCommand = taskRequest.toCommand(
             id = TaskId(UUID.randomUUID()),
@@ -30,13 +34,13 @@ class CreateTaskUC(
 
         validate(createTaskCommand)
 
-        val createdId = createTaskCommand(createTaskCommand)
-        return getTaskDetailQuery(createdId)
+        val task = createTaskCommand(createTaskCommand)
+        auditLogService.taskCreated(task)
+
+        return getTaskDetailQuery(task.id)
     }
 
-    private fun validate(
-        createTaskCommand: CreateTaskCommand,
-    ) {
+    private fun validate(createTaskCommand: CreateTaskCommand) {
         userValidator.requireExists(createTaskCommand.reporterId)
 
         createTaskCommand.assigneeId

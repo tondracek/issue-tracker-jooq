@@ -11,9 +11,9 @@ repositories {
 
 dependencies {
     // JOOQ
-    implementation("org.jooq:jooq:3.21.6")
-    implementation("org.jooq:jooq-meta:3.21.6")
-    implementation("org.jooq:jooq-codegen:3.21.6")
+    implementation(libs.jooq)
+    implementation(libs.jooq.meta)
+    implementation(libs.jooq.codegen)
 
     // Flyway
     implementation("org.flywaydb:flyway-core:11.14.1")

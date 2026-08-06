@@ -9,16 +9,14 @@ Content-Type: application/json
   "password": "Password123!"
 }
 
-###
-
 ### Login
 POST http://localhost:8081/realms/issue-tracker/protocol/openid-connect/token
 Content-Type: application/x-www-form-urlencoded
 
-grant_type=password&
-client_id=issue-tracker-api&
-username=test@example.com&
-password=Password123!
+grant_type = password &
+client_id = issue-tracker-api &
+username = test@example.com &
+password = Password123!
 
 > {%
     client.global.set("access_token", response.body.access_token);

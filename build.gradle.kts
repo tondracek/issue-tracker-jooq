@@ -43,6 +43,9 @@ dependencies {
 
     // JOOQ
     implementation("org.springframework.boot:spring-boot-starter-jooq")
+    implementation(libs.jooq)
+    implementation(libs.jooq.meta)
+    implementation(libs.jooq.codegen)
 
     // Security
     implementation("org.springframework.boot:spring-boot-starter-oauth2-resource-server")
