@@ -20,7 +20,7 @@ dependencies {
     implementation("org.flywaydb:flyway-database-postgresql:11.14.1")
 
     // Database
-    implementation("org.testcontainers:postgresql:1.21.4")
+    implementation(libs.testcontainers.postgresql)
     implementation("org.postgresql:postgresql:42.7.8")
     runtimeOnly("org.slf4j:slf4j-simple:1.7.36")
 }
