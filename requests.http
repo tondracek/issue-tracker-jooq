@@ -4,8 +4,8 @@ Content-Type: application/json
 Authorization: Bearer {{access_token}}
 
 {
-  "title": "Implement CreateTask",
-  "description": "Implement create endpoint",
+  "title": "Implement UpdateTask audit",
+  "description": "Implement UpdateTask audit",
   "assigneeId": null,
   "priority": "HIGH"
 }
@@ -40,4 +40,15 @@ Authorization: Bearer {{access_token}}
 
 {
   "action": "TASK_CREATED"
+}
+
+### TEST
+
+PATCH http://localhost:8080/api/tasks/f0a8779c-edf1-48c2-94b8-884ab92806df
+Content-Type: application/json
+Authorization: Bearer {{access_token}}
+
+{
+  "assigneeId": null,
+  "status": "IN_PROGRESS"
 }

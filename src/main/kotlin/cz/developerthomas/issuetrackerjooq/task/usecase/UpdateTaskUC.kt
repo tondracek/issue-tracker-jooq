@@ -1,5 +1,6 @@
 package cz.developerthomas.issuetrackerjooq.task.usecase
 
+import cz.developerthomas.issuetrackerjooq.audit.service.AuditLogService
 import cz.developerthomas.issuetrackerjooq.auth.usecase.GetLoggedUserUC
 import cz.developerthomas.issuetrackerjooq.core.fieldupdate.onValue
 import cz.developerthomas.issuetrackerjooq.core.fieldupdate.onValueNotNull
@@ -15,6 +16,7 @@ import cz.developerthomas.issuetrackerjooq.task.query.UpdateTaskCommandHandler
 import cz.developerthomas.issuetrackerjooq.task.view.TaskDetailView
 import cz.developerthomas.issuetrackerjooq.user.domain.UserValidator
 import org.springframework.stereotype.Service
+import org.springframework.transaction.annotation.Transactional
 
 @Service
 class UpdateTaskUC(
@@ -23,15 +25,19 @@ class UpdateTaskUC(
     private val getTaskDetailQuery: GetTaskDetailQuery,
     private val userValidator: UserValidator,
     private val getLoggedUserUC: GetLoggedUserUC,
+    private val auditLogService: AuditLogService,
 ) {
 
+    @Transactional
     operator fun invoke(id: TaskId, request: UpdateTaskRequest): TaskDetailView {
         val updateTaskCommand = request.toCommand()
 
         val original = getTaskQuery(id)
         validate(original, updateTaskCommand)
 
-        updateTaskCommandHandler(id, updateTaskCommand)
+        val updated = updateTaskCommandHandler(id, updateTaskCommand)
+        auditLogService.taskUpdated(original, updated)
+
         return getTaskDetailQuery(id)
     }
 
