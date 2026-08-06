@@ -21,6 +21,7 @@ class GetTaskQuery(
         TASK.REPORTER_ID,
         TASK.STATUS,
         TASK.PRIORITY,
+        TASK.CREATED_AT,
         TASK.UPDATED_AT,
     )
         .from(TASK)
