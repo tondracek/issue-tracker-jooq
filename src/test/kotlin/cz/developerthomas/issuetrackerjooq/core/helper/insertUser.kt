@@ -1,5 +1,6 @@
 package cz.developerthomas.issuetrackerjooq.core.helper
 
+import cz.developerthomas.issuetrackerjooq.auth.domain.AuthId
 import cz.developerthomas.issuetrackerjooq.tables.records.AppUserRecord
 import cz.developerthomas.issuetrackerjooq.tables.references.APP_USER
 import cz.developerthomas.issuetrackerjooq.user.domain.UserId
@@ -14,6 +15,7 @@ fun DSLContext.insertUser(
 ): AppUserRecord {
     val user = AppUserRecord(
         id = id,
+        authId = AuthId(id.value.toString()),
         email = email,
         name = name,
         jobTitle = jobTitle
