@@ -25,3 +25,19 @@ Authorization: Bearer {{access_token}}
     "HIGH"
   ]
 }
+
+### Browse audit logs
+POST http://localhost:8080/api/audit/browse
+Content-Type: application/json
+Authorization: Bearer {{access_token}}
+
+{}
+
+### Browse audit logs - filter by action
+POST http://localhost:8080/api/audit/browse
+Content-Type: application/json
+Authorization: Bearer {{access_token}}
+
+{
+  "action": "TASK_CREATED"
+}
