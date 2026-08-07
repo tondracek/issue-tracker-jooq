@@ -6,6 +6,7 @@ import cz.developerthomas.issuetrackerjooq.audit.query.CreateAuditLogCommand
 import cz.developerthomas.issuetrackerjooq.auth.usecase.GetLoggedUserUC
 import cz.developerthomas.issuetrackerjooq.enums.AuditEvent
 import cz.developerthomas.issuetrackerjooq.task.domain.Task
+import cz.developerthomas.issuetrackerjooq.taskcomment.domain.TaskComment
 import org.springframework.stereotype.Service
 import tools.jackson.databind.JsonNode
 import tools.jackson.databind.ObjectMapper
@@ -19,18 +20,15 @@ class AuditLogService(
     private val objectMapper: ObjectMapper,
 ) {
 
+    // ---------
+    // TASKS
+    // ---------
+
     fun taskCreated(task: Task) = log(
         task.id.value,
         task.title,
         AuditEvent.TASK_CREATED,
         objectMapper.valueToTree(task)
-    )
-
-
-    private val updateIgnoredProperties: Set<String> = setOf(
-        Task::updatedAt.name,
-        Task::createdAt.name,
-        Task::id.name
     )
 
     fun taskUpdated(
@@ -41,6 +39,30 @@ class AuditLogService(
         displayName = updated.title,
         auditEvent = AuditEvent.TASK_UPDATED,
         payload = getUpdatePayload(original, updated)
+    )
+
+    // ---------
+    // TASKS
+    // ---------
+
+    fun taskCommentCreated(
+        task: TaskComment,
+    ) = log(
+        entityId = task.id.value,
+        displayName = task.content,
+        auditEvent = AuditEvent.COMMENT_CREATED,
+        payload = objectMapper.valueToTree(task)
+    )
+
+    // ---------
+    // HELPERS
+    // ---------
+
+
+    private val updateIgnoredProperties: Set<String> = setOf(
+        Task::updatedAt.name,
+        Task::createdAt.name,
+        Task::id.name
     )
 
     /**
@@ -69,9 +91,6 @@ class AuditLogService(
 
         return result
     }
-
-    // ---------------
-    // ---------------
 
     private fun log(
         entityId: UUID,
