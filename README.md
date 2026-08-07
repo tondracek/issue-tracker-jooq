@@ -4,6 +4,10 @@
 - `CreateTaskUC.kt`, `UpdateTaskUC`, `BrowseTasksUC`
 - k tomu související `...Query.kt` a `...Command.kt` soubory
 
+## Ukázkové query
+
+- v `requests/*.http`
+
 ## Running the project
 
 1. Start the infrastructure:
