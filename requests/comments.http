@@ -1,0 +1,25 @@
+### Get task detail with comments
+GET http://localhost:8080/api/tasks/6a173437-23e2-466e-815f-3ed1a9298066
+Authorization: Bearer {{access_token}}
+
+### Create task comment
+POST http://localhost:8080/api/tasks/6a173437-23e2-466e-815f-3ed1a9298066/comments
+Content-Type: application/json
+Authorization: Bearer {{access_token}}
+
+{
+  "content": "Ahoj, tohle je nový komentář!"
+}
+
+### Create another comment
+POST http://localhost:8080/api/tasks/6a173437-23e2-466e-815f-3ed1a9298066/comments
+Content-Type: application/json
+Authorization: Bearer {{access_token}}
+
+{
+  "content": "Druhý komentář k ověření persistence"
+}
+
+### Get task detail again to verify comments were added
+GET http://localhost:8080/api/tasks/6a173437-23e2-466e-815f-3ed1a9298066
+Authorization: Bearer {{access_token}}
