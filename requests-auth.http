@@ -3,10 +3,10 @@ POST http://localhost:8080/api/auth/register
 Content-Type: application/json
 
 {
-  "email": "test@example.com",
+  "email": "weak_password1@example.com",
   "name": "Test User",
   "jobTitle": "Software Developer",
-  "password": "Password123!"
+  "password": "123"
 }
 
 ### Login

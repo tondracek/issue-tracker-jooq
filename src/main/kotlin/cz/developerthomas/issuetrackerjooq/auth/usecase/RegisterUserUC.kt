@@ -14,8 +14,6 @@ class RegisterUserUC(
 ) {
 
     operator fun invoke(request: RegisterRequest): UserId {
-        // TODO: validation
-
         val authId = identityProvider.createUser(
             request.email,
             request.password,
