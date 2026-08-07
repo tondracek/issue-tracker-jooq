@@ -4,24 +4,24 @@ import cz.developerthomas.issuetrackerjooq.core.fieldupdate.FieldUpdate
 import cz.developerthomas.issuetrackerjooq.tables.references.TASK
 import cz.developerthomas.issuetrackerjooq.task.domain.Task
 import cz.developerthomas.issuetrackerjooq.task.domain.TaskId
-import cz.developerthomas.issuetrackerjooq.task.domain.UpdateTaskCommand
+import cz.developerthomas.issuetrackerjooq.task.domain.UpdateTask
 import org.jooq.*
 import org.springframework.stereotype.Repository
 import java.time.LocalDateTime
 
 @Repository
-class UpdateTaskCommandHandler(
+class UpdateTaskCommand(
     private val dsl: DSLContext,
 ) {
 
-    operator fun invoke(id: TaskId, updateTaskCommand: UpdateTaskCommand) =
+    operator fun invoke(id: TaskId, updateTask: UpdateTask) =
         dsl.update(TASK)
-            .addValueIfSpecified(TASK.TITLE, updateTaskCommand.title)
-            .addValueIfSpecified(TASK.DESCRIPTION, updateTaskCommand.description)
-            .addValueIfSpecified(TASK.ASSIGNEE_ID, updateTaskCommand.assigneeId)
-            .addValueIfSpecified(TASK.REPORTER_ID, updateTaskCommand.reporterId)
-            .addValueIfSpecified(TASK.STATUS, updateTaskCommand.status)
-            .addValueIfSpecified(TASK.PRIORITY, updateTaskCommand.priority)
+            .addValueIfSpecified(TASK.TITLE, updateTask.title)
+            .addValueIfSpecified(TASK.DESCRIPTION, updateTask.description)
+            .addValueIfSpecified(TASK.ASSIGNEE_ID, updateTask.assigneeId)
+            .addValueIfSpecified(TASK.REPORTER_ID, updateTask.reporterId)
+            .addValueIfSpecified(TASK.STATUS, updateTask.status)
+            .addValueIfSpecified(TASK.PRIORITY, updateTask.priority)
             .set(TASK.UPDATED_AT, LocalDateTime.now())
             .where(TASK.ID.eq(id))
             .returningResult(

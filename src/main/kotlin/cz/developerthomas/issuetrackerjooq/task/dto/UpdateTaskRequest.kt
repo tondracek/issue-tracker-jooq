@@ -3,7 +3,7 @@ package cz.developerthomas.issuetrackerjooq.task.dto
 import cz.developerthomas.issuetrackerjooq.core.fieldupdate.FieldUpdate
 import cz.developerthomas.issuetrackerjooq.enums.TaskPriority
 import cz.developerthomas.issuetrackerjooq.enums.TaskStatus
-import cz.developerthomas.issuetrackerjooq.task.domain.UpdateTaskCommand
+import cz.developerthomas.issuetrackerjooq.task.domain.UpdateTask
 import cz.developerthomas.issuetrackerjooq.user.domain.UserId
 
 /**
@@ -20,7 +20,7 @@ data class UpdateTaskRequest(
     val priority: FieldUpdate<TaskPriority> = FieldUpdate.Undefined,
 )
 
-fun UpdateTaskRequest.toCommand() = UpdateTaskCommand(
+fun UpdateTaskRequest.toCommand() = UpdateTask(
     title = title,
     description = description,
     assigneeId = assigneeId,

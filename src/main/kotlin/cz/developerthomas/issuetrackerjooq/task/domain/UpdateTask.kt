@@ -8,7 +8,7 @@ import cz.developerthomas.issuetrackerjooq.user.domain.UserId
 /**
  * Domain command for task updates.
  */
-data class UpdateTaskCommand(
+data class UpdateTask(
     val title: FieldUpdate<String>,
     val description: FieldUpdate<String?>,
     val assigneeId: FieldUpdate<UserId?>,

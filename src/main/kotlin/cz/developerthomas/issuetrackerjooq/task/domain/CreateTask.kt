@@ -4,7 +4,7 @@ import cz.developerthomas.issuetrackerjooq.enums.TaskPriority
 import cz.developerthomas.issuetrackerjooq.enums.TaskStatus
 import cz.developerthomas.issuetrackerjooq.user.domain.UserId
 
-data class CreateTaskCommand(
+data class CreateTask(
     val id: TaskId,
     val title: String,
     val description: String?,

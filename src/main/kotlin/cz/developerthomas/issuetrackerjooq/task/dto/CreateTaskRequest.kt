@@ -2,7 +2,7 @@ package cz.developerthomas.issuetrackerjooq.task.dto
 
 import cz.developerthomas.issuetrackerjooq.enums.TaskPriority
 import cz.developerthomas.issuetrackerjooq.enums.TaskStatus
-import cz.developerthomas.issuetrackerjooq.task.domain.CreateTaskCommand
+import cz.developerthomas.issuetrackerjooq.task.domain.CreateTask
 import cz.developerthomas.issuetrackerjooq.task.domain.TaskId
 import cz.developerthomas.issuetrackerjooq.user.domain.UserId
 
@@ -17,7 +17,7 @@ fun CreateTaskRequest.toCommand(
     id: TaskId,
     reporterId: UserId,
     status: TaskStatus,
-) = CreateTaskCommand(
+) = CreateTask(
     id = id,
     title = title,
     description = description,

@@ -2,14 +2,14 @@ package cz.developerthomas.issuetrackerjooq.auth.usecase
 
 import cz.developerthomas.issuetrackerjooq.auth.dto.RegisterRequest
 import cz.developerthomas.issuetrackerjooq.auth.dto.toCommand
-import cz.developerthomas.issuetrackerjooq.auth.query.CreateUserCommandHandler
+import cz.developerthomas.issuetrackerjooq.auth.query.CreateUserCommand
 import cz.developerthomas.issuetrackerjooq.core.identityprovider.IdentityProvider
 import cz.developerthomas.issuetrackerjooq.user.domain.UserId
 import org.springframework.stereotype.Service
 
 @Service
 class RegisterUserUC(
-    private val createUserCommandHandler: CreateUserCommandHandler,
+    private val createUserCommand: CreateUserCommand,
     private val identityProvider: IdentityProvider,
 ) {
 
@@ -25,7 +25,7 @@ class RegisterUserUC(
         )
 
         try {
-            return createUserCommandHandler(createUserCommand)
+            return createUserCommand(createUserCommand)
         } catch (e: RuntimeException) {
             identityProvider.deleteUser(authId)
             throw e

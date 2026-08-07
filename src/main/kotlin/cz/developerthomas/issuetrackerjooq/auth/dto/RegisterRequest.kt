@@ -1,7 +1,7 @@
 package cz.developerthomas.issuetrackerjooq.auth.dto
 
 import cz.developerthomas.issuetrackerjooq.auth.domain.AuthId
-import cz.developerthomas.issuetrackerjooq.auth.domain.CreateUserCommand
+import cz.developerthomas.issuetrackerjooq.auth.domain.CreateUser
 import cz.developerthomas.issuetrackerjooq.user.domain.UserId
 import jakarta.validation.constraints.Email
 import jakarta.validation.constraints.NotBlank
@@ -21,7 +21,7 @@ data class RegisterRequest(
 fun RegisterRequest.toCommand(
     id: UserId,
     authId: AuthId,
-) = CreateUserCommand(
+) = CreateUser(
     id = id,
     email = email,
     name = name,

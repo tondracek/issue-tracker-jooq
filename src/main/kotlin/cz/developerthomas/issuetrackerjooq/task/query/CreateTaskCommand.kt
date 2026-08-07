@@ -2,19 +2,19 @@ package cz.developerthomas.issuetrackerjooq.task.query
 
 import cz.developerthomas.issuetrackerjooq.tables.records.TaskRecord
 import cz.developerthomas.issuetrackerjooq.tables.references.TASK
-import cz.developerthomas.issuetrackerjooq.task.domain.CreateTaskCommand
+import cz.developerthomas.issuetrackerjooq.task.domain.CreateTask
 import cz.developerthomas.issuetrackerjooq.task.domain.Task
 import org.jooq.DSLContext
 import org.jooq.Records
 import org.springframework.stereotype.Repository
 
 @Repository
-class CreateTaskCommandHandler(
+class CreateTaskCommand(
     private val dsl: DSLContext,
 ) {
 
-    operator fun invoke(createTaskCommand: CreateTaskCommand): Task {
-        val task = createTaskCommand.toTaskRecord()
+    operator fun invoke(createTask: CreateTask): Task {
+        val task = createTask.toTaskRecord()
 
         return dsl.insertInto(TASK)
             .set(task)
@@ -33,7 +33,7 @@ class CreateTaskCommandHandler(
     }
 }
 
-private fun CreateTaskCommand.toTaskRecord() = TaskRecord(
+private fun CreateTask.toTaskRecord() = TaskRecord(
     id = id,
     title = title,
     description = description,

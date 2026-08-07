@@ -20,3 +20,9 @@
        keycloak:
          client-secret: <generated-secret>
        ```
+
+## Zajímavé části projektu
+
+- `AuditService.kt`
+- `CreateTaskUC.kt`, `UpdateTaskUC`, `BrowseTasksUC`
+- k tomu související `...Query.kt` a `...Command.kt` soubory
