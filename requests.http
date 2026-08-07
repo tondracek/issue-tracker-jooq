@@ -42,13 +42,13 @@ Authorization: Bearer {{access_token}}
   "action": "TASK_CREATED"
 }
 
-### TEST
+### Task patch test
 
 PATCH http://localhost:8080/api/tasks/f0a8779c-edf1-48c2-94b8-884ab92806df
 Content-Type: application/json
 Authorization: Bearer {{access_token}}
 
 {
-  "assigneeId": null,
+  "assigneeId": "38aedc70-d562-4148-90be-a2fae8684eca",
   "status": "IN_PROGRESS"
 }
