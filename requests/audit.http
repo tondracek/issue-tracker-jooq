@@ -11,5 +11,5 @@ Content-Type: application/json
 Authorization: Bearer {{access_token}}
 
 {
-  "action": "TASK_CREATED"
+  "action": "TASK_UPDATED"
 }

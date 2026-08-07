@@ -8,10 +8,12 @@ import cz.developerthomas.issuetrackerjooq.user.view.userPreviewRow
 import org.jooq.*
 import org.jooq.impl.DSL.trueCondition
 import org.springframework.stereotype.Repository
+import tools.jackson.databind.ObjectMapper
 
 @Repository
 class BrowseAuditLogsQuery(
     private val dsl: DSLContext,
+    private val objectMapper: ObjectMapper,
 ) {
 
     operator fun invoke(filter: AuditBrowseFilter): List<AuditLogListItemView> =
@@ -21,7 +23,8 @@ class BrowseAuditLogsQuery(
             AUDIT_LOG.DISPLAY_NAME,
             userPreviewRow(APP_USER),
             AUDIT_LOG.ACTION,
-            AUDIT_LOG.PAYLOAD,
+            AUDIT_LOG.PAYLOAD
+                .convertFrom { objectMapper.readTree(it?.data()) },
             AUDIT_LOG.CREATED_AT,
         )
             .from(AUDIT_LOG)
@@ -33,7 +36,7 @@ class BrowseAuditLogsQuery(
             )
             .orderBy(
                 AUDIT_LOG.CREATED_AT.desc(),
-                AUDIT_LOG.ID.desc()  // Secondary sort for deterministic ordering
+                AUDIT_LOG.ID.desc(),
             )
             .limitOffsetOptional(filter.limit, filter.offset)
             .fetch(Records.mapping(::AuditLogListItemView))
